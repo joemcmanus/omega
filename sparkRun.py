@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# Python script to remote control a Onion Omega II IoT device
-# using a Cisco WebEx Spark room
+# File : sparkRun.py
+# Desc : Python script to remote control a Onion Omega II IoT device using a Cisco WebEx Spark room
+# Author : Joe McManus josephmc@alumni.cmu.edu 
+# version :  1.0 2018.05.01
 #
-# Joe McManus josephmc@alumni.cmu.edu
-# version 1.0 2018.05.01
 # Copyright (C) 2018 Joe McManus
 #
 # This program is free software: you can redistribute it and/or modify
@@ -27,12 +27,13 @@ import configparser
 import time
 import argparse
 from datetime import datetime
+from os import path
 
 parser = argparse.ArgumentParser(description='A program to receive messages from Cisco Spark on Omega')
 parser.add_argument('--pid', help="Create a pid file in /var/run/sparkRun.pid",  action="store_true")
 parser.add_argument('--delay', help="Number of seconds to wait between readings, default 30", default=30, type=int, action="store")
 parser.add_argument('--log', help="Create a log file in /tmp/sparkRun.log",  action="store_true")
-
+parser.add_argument('--config', help="Specify an alternate location of the config file, default ./spark.cfg", default='spark.cfg',  action="store")
 
 args=parser.parse_args()
 
@@ -50,13 +51,15 @@ if args.log:
 	logging.debug("{}:  Started App".format(datetime.now()))
 
 #read API key 
-config=configparser.ConfigParser()
-try:
-    config.read('spark.cfg')
-except:
-    print("ERROR: spark.cfg missing.")
-    quit()
+configFile=args.config
+if path.isfile(configFile):
+	print("Reading config in " + configFile) 
+else:
+	print("ERROR: Can't read config file " + configFile) 
+	quit()
 
+config=configparser.ConfigParser()
+config.read(configFile)
 apiKey=config['apiKey']['key']
 roomName=config['apiKey']['room']
 api = CiscoSparkAPI(access_token=apiKey)
@@ -77,6 +80,8 @@ def getRoomID(api, roomName):
 	return roomID
 
 roomID=getRoomID(api, roomName)
+print("Connected, using roomID : "  + roomID)
+logging.debug("{}:Connected to Spark Room : {}".format(messageTime, message.text))
 
 #Initialize an empty message and timestamp, so we don't run old commands
 lastMessageID=''
@@ -111,5 +116,3 @@ while True:
 				lastMessageTime=messageTime	
 				break
 	time.sleep(args.delay)
-
-
