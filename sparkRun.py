@@ -81,7 +81,7 @@ def getRoomID(api, roomName):
 
 roomID=getRoomID(api, roomName)
 print("Connected, using roomID : "  + roomID)
-logging.debug("{}:Connected to Spark Room : {}".format(messageTime, message.text))
+logging.debug("{}:Connected to Spark Room : {}".format(datetime.now(), roomID))
 
 #Initialize an empty message and timestamp, so we don't run old commands
 lastMessageID=''

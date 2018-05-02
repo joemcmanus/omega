@@ -6,7 +6,7 @@ The file sparkRun.py will connect an OmegaII to a Cisco Spark room and allow you
 
 Usage:
 
-    root@onion1:~# ./sparkRun.py --help | sed 's/^/    /'
+    root@onion1:~# ./sparkRun.py --help 
     usage: sparkRun.py [-h] [--pid] [--delay DELAY] [--log] [--config CONFIG]
     
     A program to receive messages from Cisco Spark on Omega
@@ -18,6 +18,21 @@ Usage:
       --log            Create a log file in /tmp/sparkRun.log
       --config CONFIG  Specify an alternate location of the config file, default
                        ./spark.cfg
+
+To enable lopgging:
+
+    root@onion1:~# ./sparkRun.py --log
+    root@onion1:~# head  /tmp/sparkRun.log  
+    DEBUG:root:2018-05-01 22:46:19.266258:  Started App
+    DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ciscospark.com
+    DEBUG:urllib3.connectionpool:https://api.ciscospark.com:443 "GET /v1/rooms HTTP/1.1" 200 None
+    DEBUG:root:2018-05-01 22:48:39.735091:  Started App
+    DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ciscospark.com
+    DEBUG:urllib3.connectionpool:https://api.ciscospark.com:443 "GET /v1/rooms HTTP/1.1" 200 None
+    DEBUG:root:2018-05-01 22:48:40.809464:Connected to Spark Room : ...
+    DEBUG:urllib3.connectionpool:https://api.ciscospark.com:443 "GET /v1/messages?roomId=...  HTTP/1.1" 200 None
+    DEBUG:root:2018-05-02 04:47:11: Received Message: run df -h 
+    DEBUG:urllib3.connectionpool:https://api.ciscospark.com:443 "POST /v1/messages HTTP/1.1" 200 None
 
 To run commands type: run command i.e. run df -h 
 
