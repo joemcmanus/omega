@@ -35,5 +35,8 @@ To enable logging:
     DEBUG:urllib3.connectionpool:https://api.ciscospark.com:443 "POST /v1/messages HTTP/1.1" 200 None
 
 To run commands type: run command i.e. run df -h 
+![alt tag](https://raw.githubusercontent.com/joemcmanus/omega/master/images/runExample.jpeg)
 
 To update the Omega OLED Shield if you have one, type oled "My Message Here" 
+![alt tag](https://raw.githubusercontent.com/joemcmanus/omega/master/images/oledExample.jpeg)
+![alt tag](https://raw.githubusercontent.com/joemcmanus/omega/master/images/oledOutputExample.png)
