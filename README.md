@@ -19,7 +19,7 @@ Usage:
       --config CONFIG  Specify an alternate location of the config file, default
                        ./spark.cfg
 
-To enable lopgging:
+To enable logging:
 
     root@onion1:~# ./sparkRun.py --log
     root@onion1:~# head  /tmp/sparkRun.log  
